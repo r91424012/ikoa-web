@@ -11,7 +11,27 @@ DownloadCount=0
 cd /app/fanza || exit
 codeQuota=$(./iKOA -E cid:118abp12345 | grep -oP '(?<=剩余\s)[0-9]+(?=\s次)')
 
-if [[ $codeQuota -gt 0 ]]; then
+if [[ $codeQuota -gt 185 ]]; then
+    echo "序列码额度剩余 ${codeQuota} 次"
+else
+sleep 2
+if [[ $codeQuota -gt 185 ]]; then
+    echo "序列码额度剩余 ${codeQuota} 次"
+else
+sleep 5
+if [[ $codeQuota -gt 185 ]]; then
+    echo "序列码额度剩余 ${codeQuota} 次"
+else
+sleep 10
+if [[ $codeQuota -gt 185 ]]; then
+    echo "序列码额度剩余 ${codeQuota} 次"
+else
+sleep 60
+if [[ $codeQuota -gt 185 ]]; then
+    echo "序列码额度剩余 ${codeQuota} 次"
+else
+sleep 120
+if [[ $codeQuota -gt 185 ]]; then
     echo "序列码额度剩余 ${codeQuota} 次"
 else
     if [[ $PROMOTION == "true" ]]; then
@@ -90,7 +110,36 @@ for i in "${!idList[@]}"; do
         echo "${idList[i]},,${TaskId},pass,,,,${TAG},${isMonthly}" >> "$fileName"
         continue
     fi
-      
+    
+    if [[ $ikoaOutput =~ "查询无结果" ]]; then
+        sleep 2
+        ikoaOutput=$(./iKOA -E -d "$dirArgs" pid:${idList[i]}" | tail -n 6)
+    fi
+    
+    if [[ $ikoaOutput =~ "查询无结果" ]]; then
+        sleep 5
+        ikoaOutput=$(./iKOA -E -d "$dirArgs" pid:${idList[i]}" | tail -n 6)
+    fi
+    
+    if [[ $ikoaOutput =~ "查询无结果" ]]; then
+        sleep 10
+        ikoaOutput=$(./iKOA -E -d "$dirArgs" pid:${idList[i]}" | tail -n 6)
+    fi
+    
+    if [[ $ikoaOutput =~ "查询无结果" ]]; then
+        sleep 10
+        ikoaOutput=$(./iKOA -E -d "$dirArgs" msg:${idList[i]}" | tail -n 6)
+    fi
+ 
+    if [[ !($ikoaOutput =~ "已下载") ]]; then
+        sleep 5
+        ikoaOutput=$(./iKOA -E -d "$dirArgs" "$TYPE":"${idList[i]}" | tail -n 6)
+    fi
+    if [[ !($ikoaOutput =~ "已下载") ]]; then
+        sleep 5
+        ikoaOutput=$(./iKOA -E -d "$dirArgs" "$TYPE":"${idList[i]}" | tail -n 6)
+    fi     
+    
     if [[ $ikoaOutput =~ "已下载" ]]; then
         DownloadCount=$((DownloadCount + 1))
         bitrate=$(echo "$ikoaOutput" | grep -oE '[0-9]+kbps')
@@ -107,6 +156,7 @@ for i in "${!idList[@]}"; do
         fileSize=$(du -m "$filePath" | cut -f1)
         echo "${idList[i]},${name},${TaskId},succeed,${fileSize}M,${bitrate},${multipart},${TAG},${isMonthly}" >> "$fileName"
         echo "id:${idList[i]} name:${name} taskid:${TaskId} status:succeed size:${fileSize}M bitrate:${bitrate} multipart:${multipart} tag:${TAG:-None} Monthly:${isMonthly}"         
+
     elif [[ $ikoaOutput =~ "序列码额度为0" ]]; then
         echo "序列码额度为0，不能下载!"
         break
