@@ -112,8 +112,8 @@ for i in "${!idList[@]}"; do
     fi
     
     if [[ $ikoaOutput =~ "查询无结果" ]]; then
-        sleep 2
-        ikoaOutput=$(./iKOA -E -d "$dirArgs" pid:${idList[i]}" | tail -n 6)
+    sleep 5
+    ikoaOutput=$(./iKOA -E -d "$dirArgs" pid:${idList[i]}" | tail -n 6)
     fi
     
     if [[ $ikoaOutput =~ "查询无结果" ]]; then
