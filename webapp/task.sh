@@ -128,7 +128,7 @@ for i in "${!idList[@]}"; do
     
     if [[ $ikoaOutput =~ "查询无结果" ]]; then
         sleep 10
-        ikoaOutput=$(./iKOA -E -d "$dirArgs" msg:${idList[i]}" | tail -n 6)
+        ikoaOutput=$(./iKOA -E -d "$dirArgs" num:${idList[i]}" | tail -n 6)
     fi
  
     if [[ !($ikoaOutput =~ "已下载") ]]; then
