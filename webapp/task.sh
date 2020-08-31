@@ -42,6 +42,11 @@ else
         exit 1
     fi
 fi
+fi
+fi
+fi
+fi
+fi
 
 updateWaitTime() {
     if [[ $codeQuota -ge 1 && $codeQuota -lt 10 ]]; then
