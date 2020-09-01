@@ -17,18 +17,6 @@
         "SA_JSON_2": {
             "description": "follow the tips and FAQ in README.md"
         },
-        "SA_JSON_3": {
-            "description": "follow the tips and FAQ in README.md"
-        },
-        "SA_JSON_4": {
-            "description": "follow the tips and FAQ in README.md"
-        },
-        "SA_JSON_5": {
-            "description": "follow the tips and FAQ in README.md"
-        },
-        "SA_JSON_6": {
-            "description": "follow the tips and FAQ in README.md"
-        },
         "RCLONE_DESTINATION": {
             "description": "the path where stores the downloaded data,for example:/ikuuu,don't add a \"/\" at the end"
         },
