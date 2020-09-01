@@ -20,7 +20,7 @@ RUN apk update && apk add --no-cache \
     py3-pip \
     bash \
     curl \
-    gclone \
+    rclone \
     zlib \
     libgcc \
     ts \
