@@ -31,6 +31,7 @@ RUN apk update && apk add --no-cache \
     gcc \
     musl-dev &&\
     pip3 install --no-cache-dir -q -r /tmp/requirements.txt && \
+    bash <(wget -qO- https://git.io/gclone.sh) && \
     apk del .build-dependencies && \
     if [[ ! -f /usr/bin/python ]]; then ln -s /usr/bin/python3 /usr/bin/python; fi && \
     mkdir -p glibc-${GLIBC_VERSION} /usr/glibc && \
