@@ -91,12 +91,14 @@ test -n "$TAG" && dirArgs="downloads/${TAG}" || dirArgs="downloads"
 for i in "${!idList[@]}"; do
     FLAG=0
     sleep 2
+	echo "b4 check monthly"
     query=$(curl -sL --retry 5 "https://v2.mahuateng.cf/isMonthly/${idList[i]}")
+    echo "monthly checked"
     isMonthly=$(echo "$query" | grep -oP '(?<=\"monthly\":)(true|false)(?=\,)' || echo "queryfailed")
     echo "Current id:${idList[i]} taskid:${TaskId} Current task progress:$((i + 1))/${idListLen} tag:${TAG:-None} Monthly:${isMonthly}"
     sleep 1
     if [[ $isMonthly == "true" ]]; then
-        sleepHandler
+#        sleepHandler
         startTime=$SECONDS
         ikoaOutput=$(./iKOA -E -d "$dirArgs" "$TYPE":"${idList[i]}" | tail -n 6)
     elif [[ $isMonthly == "false" ]]; then
