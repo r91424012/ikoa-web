@@ -11,27 +11,27 @@ DownloadCount=0
 cd /app/fanza || exit
 codeQuota=$(./iKOA -E cid:118abp12345 | grep -oP '(?<=剩余\s)[0-9]+(?=\s次)')
 
-if [[ $codeQuota -gt 185 ]]; then
+if [[ $codeQuota -gt 120 ]]; then
     echo "序列码额度剩余 ${codeQuota} 次"
 else
 sleep 2
-if [[ $codeQuota -gt 185 ]]; then
+if [[ $codeQuota -gt 120 ]]; then
     echo "序列码额度剩余 ${codeQuota} 次"
 else
 sleep 5
-if [[ $codeQuota -gt 185 ]]; then
+if [[ $codeQuota -gt 120 ]]; then
     echo "序列码额度剩余 ${codeQuota} 次"
 else
 sleep 10
-if [[ $codeQuota -gt 185 ]]; then
+if [[ $codeQuota -gt 120 ]]; then
     echo "序列码额度剩余 ${codeQuota} 次"
 else
 sleep 60
-if [[ $codeQuota -gt 185 ]]; then
+if [[ $codeQuota -gt 120 ]]; then
     echo "序列码额度剩余 ${codeQuota} 次"
 else
 sleep 120
-if [[ $codeQuota -gt 185 ]]; then
+if [[ $codeQuota -gt 120 ]]; then
     echo "序列码额度剩余 ${codeQuota} 次"
 else
     if [[ $PROMOTION == "true" ]]; then
