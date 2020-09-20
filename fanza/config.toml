@@ -47,19 +47,21 @@ subtitle = 'ALL'
 subtitle_lang = 'zh-Hans|zh-Hant|en|ja'
 ## 将字幕转换为UTF-8格式
 subtitle_utf8 = false
+## 等待网络爬虫程序完成图像和字幕的下载，然后再开始
+await_scraper = false
 
 [behavior]
 ## policy <0-2>; 行为准则
 ## = 0; 1个视频结果仅询问是否使用了 <num:> 标签；询问是否有多个视频part
 ## = 1; 1个视频结果永不询问；询问是否有多个视频part
 ## = 2; 1个视频结果永不询问；永远不要问是否有多个视频part（下载所有）
-policy = 2
+policy = 1
 ## salesman <true,false>; 仅提示输入一项内容ID
 salesman = false
 ## exit <true,false>; 执行完成后窗口就退出了
-exit = true
+exit = false
 ## beep <true,false>; 在提示选择视频时发出声音（响铃字符）
-beep = false
+beep = true
 ## 如果存储空间少于。。 时不要继续下载 (GB)
 exit_if_space_less = 20
 ## 预取所有查询结果
@@ -68,13 +70,13 @@ exit_if_space_less = 20
 ## DESC: 先用更多的结果来排序
 prefetch_results = 'NONE'
 ## pick_best <true,false>; 自动选择比特率最高的视频
-pick_best = true
+pick_best = false
 ## shutdown_on_complete <true,false>; 下载完成后关机（仅 Windows 和 Ubuntu 15.04+）
 shutdown_on_complete = false
 
 [aspect]
 ## motd = <...>; 设置是否不显示“Message of The Day”输出则在屏幕上（每日提示）
-motd = 'iKu Original Adult 2020.08.01'
+#motd = 'iKu Original Adult 2020.09.07'
 ## 显示速度 分片/秒（进度条）
 progressbar_chunkspeed = false
 ## 显示可用空间
@@ -86,7 +88,7 @@ suffix = '-'
 ## 多个视频part合并成一个
 merge = true
 ## 多个视频part合并成一个（M3U文件）
-m3u_merge = true
+m3u_merge = false
 ## 根据文件名合并part（正则表达式；在范围内 [0]1-29）
 m3u_regex = '(.*?)-(?:[Pp]art-?)?((?:0?[1-9])|(?:[1-2]\d))$'
 ## 合并之前，检查列出的M3U文件是否互相兼容（只有大咪咪）
@@ -94,7 +96,7 @@ m3u_strict = true
 
 [output]
 ## cid 或 pid 或 num（DVD-ID，推断）
-filename = 'cid'
+filename = 'pid'
 ## 无损视频格式：mp4 或 mkv 或 raw (= ts = mpegts)
 video_format = 'mp4'
 ## 下载引擎：concurrent 或 consecutive
@@ -107,15 +109,15 @@ encoding_engine_fallback = true
 ## 选择consecutive引擎时不要删除.ts文件
 preserve_raw_file = false
 ## 将moov atom移动到文件顶部，仅 mp4 (ffmpeg: -movflags +faststart)
-web_optimized = true
+web_optimized = false
 ## 测试版功能：给视频文件添加封面（仅 mp4 和 mkv 格式）
-cover_art = true
+cover_art = false
 ## 测试版功能：移除大咪咪电影封面中的两侧白边框 (147x200)
 crop_cover_art = true
 ## 写日志文件
-chunk_log = false
+chunk_log = true
 ## 将FFmpeg命令的输出记录到文件中
-ffmpeg_log = false
+ffmpeg_log = true
 ## <1000000-..> 设为 < 1000000，FFmpeg会自动用默认值; 从源文件中读取的最大秒数，单位为秒
 ## FFmpeg的默认是7秒
 ## -> 默认值：10000000 是 10秒
@@ -129,8 +131,8 @@ ffmpeg_probesize = 10000000
 ## job <1-99>; 同时下载数量
 ## 值太高可能会减慢下载速度
 ## 视频高清（3MB 分片）：16 (~50 MB/s), 32 (~100 MB/s)
-## -> 默认值：12
-job = 16
+## -> 默认值：20
+job = 20
 ## buffer <1-..> 设为0，iKOA会自动用默认值; 视频码流缓冲区的大小（分片数量）
 ## 高达视频缓冲时，下载器可容纳多少个分片
 ## 这个值是跟同时下载数量 {job} 相关的
@@ -140,7 +142,9 @@ buffer = 0
 ## timeout <1-99>; 单次请求超时时间的秒数
 timeout = 15
 ## retry <0-99>; 最大尝试次数
-retry = 30
+retry = 15
+## retry <0-MAX_INT>; HTTP 404错误的最大尝试次数
+retry_on_404 = 15
 ## backoff <0.0-BACKOFF_MAX>; 退避系数
 ## 等待的秒数第一次失败之后根据公式：
 ## 等待的秒数 = {backoff} * (2 ** ({次数} - 1))
